@@ -39,6 +39,8 @@ import com.google.auto.service.AutoService;
 
 /**
  * common task processor
+ * 普通任务处理器，实现ITaskProcessor接口，根据业务分为普通，依赖，子任务，阻塞，条件任务类型，
+ * 包含了任务的提交，运行，分发，杀死等业务，通过@AutoService加载的类
  */
 @AutoService(ITaskProcessor.class)
 public class CommonTaskProcessor extends BaseTaskProcessor {

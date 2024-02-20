@@ -33,6 +33,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * Manage tasks
+ * 任务工作线程生成器，消费netty处理器推进队列的任务信息，并生成任务执行线程提交线程池管理
  */
 @Component
 public class WorkerManagerThread implements Runnable {

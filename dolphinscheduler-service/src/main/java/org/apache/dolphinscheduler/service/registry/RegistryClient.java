@@ -124,7 +124,7 @@ public class RegistryClient {
     public Map<String, String> getServerMaps(NodeType nodeType, boolean hostOnly) {
         Map<String, String> serverMap = new HashMap<>();
         try {
-            String path = rootNodePath(nodeType);
+            String path = rootNodePath(nodeType); // master: /nodes/master
             Collection<String> serverList = getServerNodes(nodeType);
             for (String server : serverList) {
                 String host = server;
@@ -277,7 +277,7 @@ public class RegistryClient {
     private String rootNodePath(NodeType type) {
         switch (type) {
             case MASTER:
-                return Constants.REGISTRY_DOLPHINSCHEDULER_MASTERS;
+                return Constants.REGISTRY_DOLPHINSCHEDULER_MASTERS; // /nodes/master
             case WORKER:
                 return Constants.REGISTRY_DOLPHINSCHEDULER_WORKERS;
             case DEAD_SERVER:
@@ -288,7 +288,7 @@ public class RegistryClient {
     }
 
     private Collection<String> getServerNodes(NodeType nodeType) {
-        final String path = rootNodePath(nodeType);
+        final String path = rootNodePath(nodeType); // path = /nodes/master
         final Collection<String> serverList = getChildrenKeys(path);
         if (nodeType != NodeType.WORKER) {
             return serverList;

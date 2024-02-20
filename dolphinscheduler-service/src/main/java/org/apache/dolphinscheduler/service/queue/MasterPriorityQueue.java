@@ -39,7 +39,7 @@ public class MasterPriorityQueue implements TaskPriorityQueue<Server> {
      */
     private PriorityBlockingQueue<Server> queue = new PriorityBlockingQueue<>(QUEUE_MAX_SIZE, new ServerComparator());
 
-    private HashMap<String, Integer> hostIndexMap = new HashMap<>();
+    private HashMap<String, Integer> hostIndexMap = new HashMap<>(); // host:port -> index
 
     @Override
     public void put(Server serverInfo) {

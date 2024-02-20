@@ -63,6 +63,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * server node manager
+ * 节点信息控制器，负责节点注册信息更新与槽位（slot）变更，底层实现是zookeeper分布式锁的应用
  */
 @Service
 public class ServerNodeManager implements InitializingBean {
@@ -317,8 +318,8 @@ public class ServerNodeManager implements InitializingBean {
         String nodeLock = Constants.REGISTRY_DOLPHINSCHEDULER_LOCK_MASTERS;
         try {
             registryClient.getLock(nodeLock);
-            Collection<String> currentNodes = registryClient.getMasterNodesDirectly();
-            List<Server> masterNodes = registryClient.getServerList(NodeType.MASTER);
+            Collection<String> currentNodes = registryClient.getMasterNodesDirectly(); // 返回当前的master节点
+            List<Server> masterNodes = registryClient.getServerList(NodeType.MASTER); // 返回所有master节点，按照server对象封装好
             syncMasterNodes(currentNodes, masterNodes);
         } catch (Exception e) {
             logger.error("update master nodes error", e);
@@ -350,7 +351,7 @@ public class ServerNodeManager implements InitializingBean {
     private void syncMasterNodes(Collection<String> nodes, List<Server> masterNodes) {
         masterLock.lock();
         try {
-            String addr = NetUtils.getAddr(NetUtils.getHost(), masterConfig.getListenPort());
+            String addr = NetUtils.getAddr(NetUtils.getHost(), masterConfig.getListenPort()); // 获取当前这个master的IP地址
             this.masterNodes.addAll(nodes);
             this.masterPriorityQueue.clear();
             this.masterPriorityQueue.putList(masterNodes);

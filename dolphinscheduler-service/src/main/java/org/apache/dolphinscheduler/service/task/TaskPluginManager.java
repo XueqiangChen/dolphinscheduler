@@ -43,6 +43,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+/**
+ * 任务插件管理器，不同类型的任务以插件的形式管理，在应用服务启动的时候，
+ * 通过@AutoService加载实现了TaskChannelFactory接口的工厂信息到数据库，
+ * 通过工厂对象来加载各类TaskChannel实现类到缓存
+ */
 @Component
 public class TaskPluginManager {
     private static final Logger logger = LoggerFactory.getLogger(TaskPluginManager.class);

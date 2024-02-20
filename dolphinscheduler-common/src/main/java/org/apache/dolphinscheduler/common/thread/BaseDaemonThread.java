@@ -19,6 +19,8 @@ package org.apache.dolphinscheduler.common.thread;
 
 /**
  * All thread used in DolphinScheduler should extend with this class to avoid the server hang issue.
+ * 这个抽象类的目的是提供一个基础的守护线程模板，子类可以继承这个类并重写其中的
+ * 抽象方法来实现具体的守护线程逻辑
  */
 public abstract class BaseDaemonThread extends Thread {
 

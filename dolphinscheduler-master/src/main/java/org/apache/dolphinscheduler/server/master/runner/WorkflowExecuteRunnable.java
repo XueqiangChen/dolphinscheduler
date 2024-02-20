@@ -114,6 +114,8 @@ import lombok.NonNull;
 
 /**
  * Workflow execute task, used to execute a workflow instance.
+ * 真正的业务处理线程，通过插槽获取命令commond，执行之前会校验slot的变化，如果变化不执行，
+ * 关键功能就是构建任务相关的参数，定义，优先级等，然后发送到队列，供队列处理线程消费
  */
 public class WorkflowExecuteRunnable implements Callable<WorkflowSubmitStatue> {
 
@@ -1253,6 +1255,7 @@ public class WorkflowExecuteRunnable implements Callable<WorkflowSubmitStatue> {
     }
 
     private void submitPostNode(String parentNodeCode) throws StateEventHandleException {
+        // 如果给定的 parentNodeCode=null, 那么就是解析整个有向无环图
         Set<String> submitTaskNodeList =
             DagHelper.parsePostNodes(parentNodeCode, skipTaskNodeMap, dag, getCompleteTaskInstanceMap());
         List<TaskInstance> taskInstances = new ArrayList<>();

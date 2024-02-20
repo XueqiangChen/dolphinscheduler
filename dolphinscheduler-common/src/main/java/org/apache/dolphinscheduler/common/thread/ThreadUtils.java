@@ -28,6 +28,14 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 import lombok.experimental.UtilityClass;
 
+/**
+ * @UtilityClass 是Lombok库中提供的一个注解，用于标记一个类为工具类（utility class），即所谓的静态方法持有类。
+ * 当一个类被标注为 @UtilityClass 时：
+ * 1. Lombok会确保这个类被编译器处理后变为一个不可实例化的类，也就是说它将自动添加 private 构造器，并且是 final 类型，
+ *    以防止其他类继承或创建该类的实例。
+ * 2. 类中所有的成员方法都将被默认声明为 static 方法，这样无需实例化就可以直接通过类名来调用。
+ * 3. 使用这个注解可以简化工具类或辅助类的编写，避免手动添加构造器并声明所有方法为静态的繁琐过程，使得代码更简洁、易读和维护
+ */
 @UtilityClass
 public class ThreadUtils {
 

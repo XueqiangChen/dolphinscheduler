@@ -31,6 +31,9 @@ import org.slf4j.LoggerFactory;
 
 import com.google.common.base.Strings;
 
+/**
+ * 托管在zk管理框架cautor的故障监听器，负责对worker和master注册在zk上的节点的新增和删除
+ */
 public class MasterRegistryDataListener implements SubscribeListener {
 
     private static final Logger logger = LoggerFactory.getLogger(MasterRegistryDataListener.class);

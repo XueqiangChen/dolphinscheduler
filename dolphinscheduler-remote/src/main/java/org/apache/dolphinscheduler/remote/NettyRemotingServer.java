@@ -51,6 +51,8 @@ import io.netty.handler.timeout.IdleStateHandler;
 
 /**
  * remoting netty server
+ * netty服务端，包含netty服务端serverBootstrap对象与netty服务端业务处理对象serverHandler
+ * （worker包含的netty服务端）
  */
 public class NettyRemotingServer {
 

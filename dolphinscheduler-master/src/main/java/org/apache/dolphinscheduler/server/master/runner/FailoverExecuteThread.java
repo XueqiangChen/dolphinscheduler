@@ -30,6 +30,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * 故障转移线程，包含Master和worker的
+ */
 @Service
 public class FailoverExecuteThread extends BaseDaemonThread {
 

@@ -30,6 +30,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * 事件处理线程，通过缓存起来的任务处理线程，处理每个任务在处理过程中注册在线程事件队列中的事件
+ */
 @Service
 public class EventExecuteService extends BaseDaemonThread {
 

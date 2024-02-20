@@ -41,6 +41,7 @@ import io.netty.handler.timeout.IdleStateEvent;
 
 /**
  * netty server request handler
+ * netty 服务端业务处理类：包含各类处理器以及处理器对应的执行线程池
  */
 @ChannelHandler.Sharable
 public class NettyServerHandler extends ChannelInboundHandlerAdapter {

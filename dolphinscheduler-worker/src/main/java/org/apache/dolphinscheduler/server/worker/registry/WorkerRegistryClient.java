@@ -53,6 +53,7 @@ import com.google.common.collect.Sets;
 
 /**
  * worker registry
+ * WorkerRegistryClient（zk客户端，封装了worker与zk相关的操作，注册，查询，删除等）
  */
 @Service
 public class WorkerRegistryClient implements AutoCloseable {

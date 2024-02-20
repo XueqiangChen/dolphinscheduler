@@ -61,6 +61,8 @@ public class WorkflowStartEventHandler implements WorkflowEventHandler {
         ProcessInstance processInstance = workflowExecuteRunnable.getProcessInstance();
 
         ProcessInstanceMetrics.incProcessInstanceSubmit();
+        // CompletableFuture 创建了一个异步任务，在后台执行 workflowExecuteRunnable::call 方法
+        // 执行这个方法的线程池是 workflowExecuteThreadPool 这个线程池
         CompletableFuture<WorkflowSubmitStatue> workflowSubmitFuture =
             CompletableFuture.supplyAsync(workflowExecuteRunnable::call, workflowExecuteThreadPool);
         workflowSubmitFuture.thenAccept(workflowSubmitStatue -> {

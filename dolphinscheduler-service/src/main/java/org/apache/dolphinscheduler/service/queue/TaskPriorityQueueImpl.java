@@ -26,6 +26,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * A singleton of a task queue implemented using PriorityBlockingQueue
+ * 任务队列，负责任务队列的存储控制
  */
 @Service
 public class TaskPriorityQueueImpl implements TaskPriorityQueue<TaskPriority> {

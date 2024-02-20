@@ -105,6 +105,7 @@ public class MasterFailoverService {
     }
 
     public void failoverMaster(String masterHost) {
+        // /lock/failover/masters/${masterHost}
         String failoverPath = Constants.REGISTRY_DOLPHINSCHEDULER_LOCK_FAILOVER_MASTERS + "/" + masterHost;
         try {
             registryClient.getLock(failoverPath);
@@ -121,6 +122,8 @@ public class MasterFailoverService {
      * <p>When the process instance belongs to the given masterHost and the restartTime is before the current server start up time,
      * then the process instance will be failovered.
      *
+     * master容错服务，转移流程实例和关联的任务实例。
+     * 当流程实例属于给定的 masterHost并且restartTime早于当前服务器启动时间时，流程实例将进行故障转移。
      * @param masterHost master host
      */
     private void doFailoverMaster(@NonNull String masterHost) {

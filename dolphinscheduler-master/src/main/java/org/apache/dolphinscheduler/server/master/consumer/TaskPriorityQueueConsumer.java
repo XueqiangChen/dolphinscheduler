@@ -60,6 +60,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * TaskUpdateQueue consumer
+ * 任务队列消费线程，负责任务的根据负载均衡策略在worker之间分发与执行
  */
 @Component
 public class TaskPriorityQueueConsumer extends BaseDaemonThread {

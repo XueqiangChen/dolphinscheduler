@@ -51,6 +51,7 @@ import com.google.common.collect.Sets;
 /**
  * <p>DolphinScheduler master register client, used to connect to registry and hand the registry events.
  * <p>When the Master node startup, it will register in registry center. And schedule a {@link HeartBeatTask} to update its metadata in registry.
+ * master操作zk的客户端，封装了master对于zk的所有操作，注册，查询，删除等
  */
 @Component
 public class MasterRegistryClient implements AutoCloseable {

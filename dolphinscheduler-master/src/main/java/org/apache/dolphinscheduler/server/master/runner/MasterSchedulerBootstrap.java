@@ -120,12 +120,15 @@ public class MasterSchedulerBootstrap extends BaseDaemonThread implements AutoCl
 
     /**
      * run of MasterSchedulerService
+     * 扫描服务，包含业务执行线程和work包含的netty服务端，负责任务调度业务，
+     * 通过slot来控制集群模式下任务不被重复调度，底层实现是zookeeper分布式锁
      */
     @Override
     public void run() {
         while (Stopper.isRunning()) {
             try {
                 // todo: if the workflow event queue is much, we need to handle the back pressure
+                // 超负荷就开始sleep 1s
                 boolean isOverload =
                     OSUtils.isOverload(masterConfig.getMaxCpuLoadAvg(), masterConfig.getReservedMemory());
                 if (isOverload) {
@@ -220,14 +223,15 @@ public class MasterSchedulerBootstrap extends BaseDaemonThread implements AutoCl
     private List<Command> findCommands() throws MasterException {
         try {
             long scheduleStartTime = System.currentTimeMillis();
-            int thisMasterSlot = ServerNodeManager.getSlot();
-            int masterCount = ServerNodeManager.getMasterSize();
+            int thisMasterSlot = ServerNodeManager.getSlot(); // 获取当前master的slot
+            int masterCount = ServerNodeManager.getMasterSize(); // 获取当前 master 的数量
             if (masterCount <= 0) {
                 logger.warn("Master count: {} is invalid, the current slot: {}", masterCount, thisMasterSlot);
                 return Collections.emptyList();
             }
             int pageNumber = 0;
             int pageSize = masterConfig.getFetchCommandNum();
+            // 根据 command_id % masterCount == thisMasterSlot 来领取命令
             final List<Command> result = processService.findCommandPageBySlot(pageSize, pageNumber, masterCount, thisMasterSlot);
             if (CollectionUtils.isNotEmpty(result)) {
                 logger.info("Master schedule bootstrap loop command success, command size: {}, current slot: {}, total slot size: {}",
